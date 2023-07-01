@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AccessKey, BaseUrl, DefaultCity} from "./consts";
 import axios from "axios";
+import './CityInput.scss'
 
-const CityInput = () =>{
+const CityInput = ({cbUpdateImages}) =>{
 
     const [city, setCity] = useState(DefaultCity)
     const [images, setImages] =useState()
@@ -12,15 +13,16 @@ const CityInput = () =>{
         evt.key === "Enter" && newCity !== city &&
         (()=>{
             setCity(newCity)
-            console.log(city)
-            fetchCity()
+            fetchCity(newCity)
         })()
     }
 
-    const fetchCity = () =>{
+    useEffect(() => {fetchCity(DefaultCity)},[])
+
+    const fetchCity = (newCity) =>{
         axios.get(BaseUrl, {
             params:{
-                query: city,
+                query: newCity,
                 orientation: 'landscape',
             },
             headers:{
@@ -37,17 +39,20 @@ const CityInput = () =>{
                     thumb: item.urls.thumb
                 }))
                 setImages(imgList)
+                cbUpdateImages(imgList)
             })
             .catch(err => console.log("Error during fetching!"))
     }
 
-    return <div>
+    return <>
+        <h2 className='cityName'>New City: {city}</h2>
         <input type="text"
-        placeholder="Search"
-        onKeyDown={cbInput}
+               className='inputCity'
+               placeholder="Search"
+               onKeyDown={cbInput}
         />
-        {JSON.stringify(images)}
-    </div>
+    </>
+
 }
 
 export default CityInput
