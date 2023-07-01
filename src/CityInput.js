@@ -5,8 +5,8 @@ import './CityInput.scss'
 
 const CityInput = ({cbUpdateImages}) =>{
 
+    // City state
     const [city, setCity] = useState(DefaultCity)
-    const [images, setImages] =useState()
     // Call back event handler for key down in search
     const cbInput = (evt) =>{
         let newCity = evt.target.value.trim().toLowerCase()
@@ -17,8 +17,9 @@ const CityInput = ({cbUpdateImages}) =>{
         })()
     }
 
+    // Update default city
     useEffect(() => {fetchCity(DefaultCity)},[])
-
+    // Fetch city images
     const fetchCity = (newCity) =>{
         axios.get(BaseUrl, {
             params:{
@@ -38,7 +39,6 @@ const CityInput = ({cbUpdateImages}) =>{
                     regular:item.urls.regular,
                     thumb: item.urls.thumb
                 }))
-                setImages(imgList)
                 cbUpdateImages(imgList)
             })
             .catch(err => console.log("Error during fetching!"))
