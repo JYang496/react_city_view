@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Mark2Win CityView Project Base
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Download or git clone it to your local environment and run:
+`npm i` to install the npm dependencies
+
+run `npm start` to start your Step-by-Step project class based on this skeleton
+
+### All copyrights are reserved by Mark2Win
+> http://mark2win.com
 
 ## Available Scripts
 
